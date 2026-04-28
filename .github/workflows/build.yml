@@ -9,7 +9,7 @@ on:
     branches:
       - main
   schedule:
-    - cron: '15 11 1 */1 *' # once a month on the first day
+    - cron: "15 11 1 */1 *" # once a month on the first day
 
 jobs:
   build:
@@ -38,8 +38,6 @@ jobs:
         with:
           context: .
           file: "./Dockerfile"
-          secrets: |
-            clawhub_apikey=${{ secrets.CLAWHUB_API_KEY }}
           tags: ${{ github.repository }}:${{ github.sha }}
           load: true
           cache-from: type=local,src=/tmp/.buildx-cache
@@ -52,16 +50,16 @@ jobs:
           TRIVY_JAVA_DB_REPOSITORY: public.ecr.aws/aquasecurity/trivy-java-db,ghcr.io/aquasecurity/trivy-java-db
         with:
           image-ref: ${{ github.repository }}:${{ github.sha }}
-          format: 'template'
-          template: '@/contrib/sarif.tpl'
-          output: 'trivy-results.sarif'
-          severity: 'CRITICAL,HIGH'
-          timeout: '30m'
+          format: "template"
+          template: "@/contrib/sarif.tpl"
+          output: "trivy-results.sarif"
+          severity: "CRITICAL,HIGH"
+          timeout: "30m"
 
       - name: Upload Trivy scan results to GitHub Security tab
         uses: github/codeql-action/upload-sarif@v3
         with:
-          sarif_file: 'trivy-results.sarif'
+          sarif_file: "trivy-results.sarif"
 
         # https://github.com/docker/build-push-action/issues/252
         # https://github.com/moby/buildkit/issues/1896

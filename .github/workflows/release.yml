@@ -63,8 +63,6 @@ jobs:
         with:
           context: .
           file: "./Dockerfile"
-          secrets: |
-            clawhub_apikey=${{ secrets.CLAWHUB_API_KEY }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           platforms: linux/amd64
