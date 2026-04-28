@@ -4,9 +4,17 @@ FROM node:24.15.0-bookworm-slim
 
 COPY --from=goclaw --chown=1000:1000 /app /app
 
-RUN sed -i 's/Components: main/Components: main contrib/g' /etc/apt/sources.list.d/debian.sources && \
+RUN \
+# for mscorefonts
+    sed -i 's/Components: main/Components: main contrib/g' /etc/apt/sources.list.d/debian.sources && \
     apt update && \
     apt install -y curl git git-lfs ca-certificates build-essential && \
+# install cloudflared
+    mkdir -p --mode=0755 /usr/share/keyrings && \
+    curl -fsSLo /usr/share/keyrings/cloudflare-main.gpg https://pkg.cloudflare.com/cloudflare-main.gpg && \
+    echo 'deb [signed-by=/usr/share/keyrings/cloudflare-main.gpg] https://pkg.cloudflare.com/cloudflared any main' > /etc/apt/sources.list.d/cloudflared.list && \
+    apt update && \
+    apt install -y cloudflared && \
     curl -fsSLo /usr/local/bin/jq https://github.com/jqlang/jq/releases/download/jq-1.8.1/jq-linux64 && \
     chmod +x /usr/local/bin/jq && \
     curl -fsSLo /usr/local/bin/yq https://github.com/mikefarah/yq/releases/download/v4.53.2/yq_linux_amd64 && \
