@@ -55,19 +55,11 @@ ENV GOCLAW_CONFIG=/app/config.json \
     GOCLAW_SKILLS_DIR=/app/skills \
     GOCLAW_MIGRATIONS_DIR=/app/migrations \
     GOCLAW_HOST=0.0.0.0 \
-    GOCLAW_PORT=18790 \
-    HOMEBREW_PREFIX="/app/homebrew" \
-    HOMEBREW_CELLAR="/app/homebrew/Cellar" \
-    HOMEBREW_REPOSITORY="/app/homebrew" \
-    HOMEBREW_NO_ENV_HINTS=1 \
-    PATH="/app/homebrew/bin:/app/homebrew/sbin:$PATH"
+    GOCLAW_PORT=18790
 
 RUN \
 # install goclaw
-    curl -fsSL https://github.com/nextlevelbuilder/goclaw/releases/download/v3.11.3/goclaw-3.11.3-linux-amd64.tar.gz | tar -C /app -xvzf - && \
-# install homebrew
-    git clone https://github.com/Homebrew/brew /app/homebrew && \
-    brew install gogcli
+    curl -fsSL https://github.com/nextlevelbuilder/goclaw/releases/download/v3.11.3/goclaw-3.11.3-linux-amd64.tar.gz | tar -C /app -xvzf -
 
 EXPOSE 18790
 
