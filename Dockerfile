@@ -60,8 +60,7 @@ ENV GOCLAW_CONFIG=/app/config.json \
     HOMEBREW_CELLAR="/app/homebrew/Cellar" \
     HOMEBREW_REPOSITORY="/app/homebrew" \
     HOMEBREW_NO_ENV_HINTS=1 \
-    NPM_CONFIG_PREFIX="/home/node/.npm-packages" \
-    PATH="/app/homebrew/bin:/app/homebrew/sbin:/home/node/.npm-packages/bin:$PATH"
+    PATH="/app/homebrew/bin:/app/homebrew/sbin:$PATH"
 
 RUN \
 # install goclaw
